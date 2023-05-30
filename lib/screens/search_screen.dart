@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:postal_code_finder/controllers/search_screen_controller.dart';
 
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({super.key});
+  SearchScreen({super.key});
+
+  final SearchScreenController controller = SearchScreenController();
 
   @override
   Widget build(context) {
@@ -24,6 +27,7 @@ class SearchScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
+              controller: controller.postalCodeTextController,
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -43,7 +47,9 @@ class SearchScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         textStyle: const TextStyle(fontSize: 18)),
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.onSearch();
+                    },
                     child: const Text('Search'),
                   ),
                 )

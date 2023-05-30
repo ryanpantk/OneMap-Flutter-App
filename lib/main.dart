@@ -7,13 +7,13 @@ const startAlignment = Alignment.topCenter;
 const endAlignment = Alignment.bottomCenter;
 
 void main() {
-  runApp(const PostalCodeApp());
+  runApp(PostalCodeApp());
 }
 
 class PostalCodeApp extends StatelessWidget {
-  const PostalCodeApp({super.key});
+  PostalCodeApp({super.key});
 
-  final Widget homeScreen = const SearchScreen();
+  final Widget homeScreen = SearchScreen();
 
   @override
   Widget build(context) {
