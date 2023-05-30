@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:postal_code_finder/screens/search_screen.dart';
@@ -6,23 +7,25 @@ const startAlignment = Alignment.topCenter;
 const endAlignment = Alignment.bottomCenter;
 
 void main() {
-  runApp(const MyApp());
+  runApp(const PostalCodeApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class PostalCodeApp extends StatelessWidget {
+  const PostalCodeApp({super.key});
 
-  final Widget searchScreen = const SearchScreen();
+  final Widget homeScreen = const SearchScreen();
 
   @override
   Widget build(context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      title: 'Postal Code Finder',
       theme: ThemeData(
+        primarySwatch: Colors.indigo,
         textTheme: GoogleFonts.interTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
-      home: Scaffold(body: searchScreen),
+      home: Scaffold(body: homeScreen),
     );
   }
 }
