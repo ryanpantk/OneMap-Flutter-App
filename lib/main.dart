@@ -1,35 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:postal_code_finder/screens/search_screen.dart';
 
 const startAlignment = Alignment.topCenter;
 const endAlignment = Alignment.bottomCenter;
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  final Widget searchScreen = const SearchScreen();
+
   @override
   Widget build(context) {
     return MaterialApp(
-      home: Scaffold(
-          body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-          Color.fromARGB(255, 181, 216, 214),
-          Color.fromARGB(255, 224, 242, 241),
-        ], begin: startAlignment, end: endAlignment)),
-        child: const Center(
-          child: Text(
-            "Hello World",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 24,
-            ),
-          ),
+      theme: ThemeData(
+        textTheme: GoogleFonts.interTextTheme(
+          Theme.of(context).textTheme,
         ),
-      )),
+      ),
+      home: Scaffold(body: searchScreen),
     );
   }
 }
