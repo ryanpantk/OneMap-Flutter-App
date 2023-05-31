@@ -56,30 +56,29 @@ class SearchResultScreen extends StatelessWidget {
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children:
-                            searchResultController.searchEntries.length != 0
-                                ? searchResultController.searchEntries.map(
-                                    (e) {
-                                      return Text(e.postalCode);
-                                    },
-                                  ).toList()
-                                : [
-                                    Icon(
-                                      Icons.report,
-                                      color: Colors.red,
-                                      size: 80.0,
+                        children: searchResultController.searchEntries.isEmpty
+                            ? [
+                                const Icon(
+                                  Icons.report,
+                                  color: Colors.red,
+                                  size: 80.0,
+                                ),
+                                const Spacing(),
+                                Center(
+                                  child: Text(
+                                    "Postal Code not found",
+                                    style: TextStyle(
+                                      color: styles.darkTextColor,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    Spacing(),
-                                    Center(
-                                      child: Text(
-                                        "Postal code does not exist in Singapore",
-                                        style: TextStyle(
-                                          color: styles.darkTextColor,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    )
-                                  ],
+                                  ),
+                                )
+                              ]
+                            : searchResultController.searchEntries.map(
+                                (e) {
+                                  return Text(e.postalCode);
+                                },
+                              ).toList(),
                       )
                     ],
                   ),

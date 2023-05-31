@@ -8,6 +8,7 @@ class SearchBarController extends GetxController {
   final OneMapAPI oneMapAPI = OneMapAPI();
   final postalCodeTextController = TextEditingController();
   final searchResultController = Get.put(SearchResultController());
+  RxString lastQuery = ''.obs;
 
   @override
   void onClose() {
@@ -38,8 +39,15 @@ class SearchBarController extends GetxController {
     } else {
       try {
         var results = await oneMapAPI.getAddressResults(
-            (postalCodeTextController.text), ("1"));
-        searchResultController.setSearchResult(results);
+            (postalCodeTextController.text),
+            (searchResultController.currentPage.value.toString()));
+
+        if (searchResultController.searchEntries.isEmpty ||
+            postalCodeTextController.text != lastQuery.value) {
+          searchResultController.setSearchResult(results);
+        }
+
+        lastQuery.value = postalCodeTextController.text;
         Get.to(() => SearchResultScreen(results, this));
       } catch (exception) {
         print(exception);
