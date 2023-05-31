@@ -47,41 +47,108 @@ class SearchResultScreen extends StatelessWidget {
               ),
             ),
             const Spacing(),
-            SingleChildScrollView(
-              child: SizedBox(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height - 290,
-                child: Obx(
-                  () => ElevatedCard(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: searchResultController.searchEntries.isEmpty
-                            ? [
-                                const Icon(
-                                  Icons.report,
-                                  color: Colors.red,
-                                  size: 80.0,
-                                ),
-                                const Spacing(),
-                                Center(
-                                  child: Text(
-                                    "Postal Code not found",
-                                    style: TextStyle(
-                                      color: styles.darkTextColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+            SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height - 290,
+              child: Obx(
+                () => ElevatedCard(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: searchResultController.searchEntries.isEmpty
+                          ? [
+                              const Icon(
+                                Icons.report,
+                                color: Colors.red,
+                                size: 80.0,
+                              ),
+                              const Spacing(),
+                              Center(
+                                child: Text(
+                                  "Postal Code not found",
+                                  style: TextStyle(
+                                    color: styles.darkTextColor,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                )
-                              ]
-                            : searchResultController.searchEntries.map(
-                                (e) {
-                                  return Text(e.postalCode);
-                                },
-                              ).toList(),
-                      )
-                    ],
-                  ),
+                                ),
+                              )
+                            ]
+                          : searchResultController.searchEntries.map(
+                              (e) {
+                                return GestureDetector(
+                                  child: Column(
+                                    children: [
+                                      const Spacing(height: 4),
+                                      Text(
+                                        e.postalCode,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: styles.fontSize,
+                                            color: Colors.indigo[800]),
+                                      ),
+                                      const Spacing(height: 6),
+                                      Text("BLK ${e.blockNumber}"),
+                                      Text(e.roadName,
+                                          overflow: TextOverflow.ellipsis),
+                                      Text(e.building,
+                                          overflow: TextOverflow.ellipsis),
+                                      const Spacing(height: 4),
+                                      const Divider(
+                                        height: 20,
+                                        thickness: 0.2,
+                                        indent: 5,
+                                        endIndent: 5,
+                                        color: Colors.indigoAccent,
+                                      ),
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(25.0),
+                                        ),
+                                      ),
+                                      builder: (context) {
+                                        return SizedBox(
+                                          height: 300,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal:
+                                                    styles.horizontalPadding),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                Text(
+                                                  e.address,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: styles.fontSize,
+                                                      color: Colors.black),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                const Spacing(),
+                                                Image.network(
+                                                    "https://developers.onemap.sg/commonapi/staticmap/getStaticImage?layerchosen=default&lat=${e.latitude}&lng=${e.longitude}&zoom=17&height=200&width=500&points=[${e.latitude},${e.longitude},%22255,255,178%22,%22X%22]")
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                            ).toList(),
+                    )
+                  ],
                 ),
               ),
             )

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:postal_code_finder/assets/styles/styles.dart';
-import 'package:postal_code_finder/controllers/search_controller.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton(

@@ -50,7 +50,6 @@ class SearchBarController extends GetxController {
         lastQuery.value = postalCodeTextController.text;
         Get.to(() => SearchResultScreen(results, this));
       } catch (exception) {
-        print(exception);
         Get.showSnackbar(
           const GetSnackBar(
             title: 'Connection Error',

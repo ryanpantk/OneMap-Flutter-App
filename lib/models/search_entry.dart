@@ -1,17 +1,16 @@
 class SearchEntry {
   SearchEntry(
-      {this.blockNumber,
-      this.roadName,
-      this.building,
-      this.address,
+      {required this.blockNumber,
+      required this.roadName,
+      required this.building,
+      required this.address,
       required this.postalCode,
-      this.X,
-      this.Y,
-      this.latitude,
-      this.longitude});
+      required this.X,
+      required this.Y,
+      required this.latitude,
+      required this.longitude});
 
   factory SearchEntry.fromJSON(Map<String, dynamic> json) {
-    print(json.toString());
     return SearchEntry(
         blockNumber: json["BLK_NO"],
         roadName: json["ROAD_NAME"],
@@ -24,13 +23,13 @@ class SearchEntry {
         longitude: json["LONGITUDE"]);
   }
 
-  final String? blockNumber;
-  final String? roadName;
-  final String? building;
-  final String? address;
+  final String blockNumber;
+  final String roadName;
+  final String building;
+  final String address;
   final String postalCode;
-  final String? X;
-  final String? Y;
-  final String? latitude;
-  final String? longitude;
+  final String X;
+  final String Y;
+  final String latitude;
+  final String longitude;
 }
