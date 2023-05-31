@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:postal_code_finder/assets/styles/styles.dart';
 import 'package:postal_code_finder/widgets/spacing.dart';
 import 'package:postal_code_finder/widgets/header.dart';
@@ -12,7 +13,7 @@ class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
 
   final Styles styles = const Styles();
-  final SearchBarController controller = SearchBarController();
+  final controller = Get.put(SearchBarController());
 
   @override
   Widget build(context) {
