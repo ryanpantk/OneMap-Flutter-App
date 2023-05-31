@@ -16,50 +16,28 @@ class SearchBarController extends GetxController {
   }
 
   Future<void> onSearch() async {
-    if (postalCodeTextController.text.isEmpty) {
-      Get.showSnackbar(
-        const GetSnackBar(
-          title: 'Empty Postal Code',
-          message: 'Please make sure you have provided a postal code.',
-          icon: Icon(Icons.refresh),
-          duration: Duration(seconds: 3),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-    } else if (!RegExp(r'^[0-9]+$').hasMatch(postalCodeTextController.text)) {
-      Get.showSnackbar(
-        const GetSnackBar(
-          title: 'Incorrect Postal Code',
-          message: 'Postal codes can only contain digits.',
-          icon: Icon(Icons.refresh),
-          duration: Duration(seconds: 3),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-    } else {
-      try {
-        var results = await oneMapAPI.getAddressResults(
-            (postalCodeTextController.text),
-            (searchResultController.currentPage.value.toString()));
+    try {
+      var results = await oneMapAPI.getAddressResults(
+          (postalCodeTextController.text),
+          (searchResultController.currentPage.value.toString()));
 
-        if (searchResultController.searchEntries.isEmpty ||
-            postalCodeTextController.text != lastQuery.value) {
-          searchResultController.setSearchResult(results);
-        }
-
-        lastQuery.value = postalCodeTextController.text;
-        Get.to(() => SearchResultScreen(results, this));
-      } catch (exception) {
-        Get.showSnackbar(
-          const GetSnackBar(
-            title: 'Connection Error',
-            message: 'Please try again later.',
-            icon: Icon(Icons.refresh),
-            duration: Duration(seconds: 3),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
+      if (searchResultController.searchEntries.isEmpty ||
+          postalCodeTextController.text != lastQuery.value) {
+        searchResultController.setSearchResult(results);
       }
+
+      lastQuery.value = postalCodeTextController.text;
+      Get.to(() => SearchResultScreen(results, this));
+    } catch (exception) {
+      Get.showSnackbar(
+        const GetSnackBar(
+          title: 'Connection Error',
+          message: 'Please try again later.',
+          icon: Icon(Icons.refresh),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
     }
   }
 }

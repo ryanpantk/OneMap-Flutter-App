@@ -9,15 +9,13 @@ class SearchResultController extends GetxController {
 
   void setSearchResult(SearchResult searchResult) {
     searchEntries.clear();
-    searchEntries
-        .addAll(searchResult.results.where((e) => e.postalCode != "NIL"));
+    searchEntries.addAll(searchResult.results);
     maxPage.value = searchResult.totalNumberOfPages;
     currentPage.value = searchResult.pageNumber;
   }
 
   void addSearchResult(SearchResult searchResult) {
-    searchEntries
-        .addAll(searchResult.results.where((e) => e.postalCode != "NIL"));
+    searchEntries.addAll(searchResult.results);
     currentPage.value = searchResult.pageNumber;
   }
 }

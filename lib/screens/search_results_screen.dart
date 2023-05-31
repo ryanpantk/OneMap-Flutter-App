@@ -37,8 +37,6 @@ class SearchResultScreen extends StatelessWidget {
                   TextInput(
                     hint: 'Postal Code',
                     controller: controller.postalCodeTextController,
-                    maxCharacters: 6,
-                    keyboardType: TextInputType.number,
                   ),
                   const Spacing(),
                   PrimaryButton(
@@ -81,17 +79,21 @@ class SearchResultScreen extends StatelessWidget {
                                     children: [
                                       const Spacing(height: 4),
                                       Text(
-                                        e.postalCode,
+                                        e.building,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: styles.fontSize,
                                             color: Colors.indigo[800]),
+                                        textAlign: TextAlign.center,
                                       ),
                                       const Spacing(height: 6),
                                       Text("BLK ${e.blockNumber}"),
                                       Text(e.roadName,
                                           overflow: TextOverflow.ellipsis),
-                                      Text(e.building,
+                                      Text(
+                                          e.postalCode != "NIL"
+                                              ? e.postalCode
+                                              : "NO POSTAL CODE",
                                           overflow: TextOverflow.ellipsis),
                                       const Spacing(height: 4),
                                       const Divider(

@@ -23,15 +23,13 @@ class SearchScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: styles.horizontalPadding),
           child: ElevatedCard(
             children: [
-              const Header(text: '🇸🇬 Enter a Postal Code'),
+              const Header(text: '🇸🇬 Postal Code Finder'),
               const Spacing(height: 8),
-              const SubHeader(text: 'Input up to a maximum of 6 digits'),
+              const SubHeader(text: 'Enter a place / location / address'),
               const Spacing(),
               TextInput(
                 hint: 'Postal Code',
                 controller: controller.postalCodeTextController,
-                maxCharacters: 6,
-                keyboardType: TextInputType.number,
               ),
               const Spacing(),
               PrimaryButton(label: 'Search', onClicked: controller.onSearch),
