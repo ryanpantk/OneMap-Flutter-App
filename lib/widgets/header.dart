@@ -16,7 +16,6 @@ class Header extends StatelessWidget {
         fontWeight: FontWeight.bold,
         fontSize: styles.fontSize,
       ),
-      textAlign: TextAlign.left,
     );
   }
 }

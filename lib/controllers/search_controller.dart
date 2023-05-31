@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:postal_code_finder/controllers/search_result_controller.dart';
 import 'package:postal_code_finder/screens/search_results_screen.dart';
 import 'package:postal_code_finder/services/onemap_api.dart';
 
-class SearchScreenController extends GetxController {
+class SearchBarController extends GetxController {
   final OneMapAPI oneMapAPI = OneMapAPI();
   final postalCodeTextController = TextEditingController();
-  final RxInt pageNumber = 1.obs;
+  final searchResultController = Get.put(SearchResultController());
 
   @override
   void onClose() {
@@ -37,9 +38,11 @@ class SearchScreenController extends GetxController {
     } else {
       try {
         var results = await oneMapAPI.getAddressResults(
-            (postalCodeTextController.text), (pageNumber.toString()));
-        Get.to(SearchResultScreen(results));
+            (postalCodeTextController.text), ("1"));
+        searchResultController.setSearchResult(results);
+        Get.to(() => SearchResultScreen(results, this));
       } catch (exception) {
+        print(exception);
         Get.showSnackbar(
           const GetSnackBar(
             title: 'Connection Error',

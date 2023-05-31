@@ -4,13 +4,14 @@ class SearchEntry {
       this.roadName,
       this.building,
       this.address,
-      this.postalCode,
+      required this.postalCode,
       this.X,
       this.Y,
       this.latitude,
       this.longitude});
 
   factory SearchEntry.fromJSON(Map<String, dynamic> json) {
+    print(json.toString());
     return SearchEntry(
         blockNumber: json["BLK_NO"],
         roadName: json["ROAD_NAME"],
@@ -27,7 +28,7 @@ class SearchEntry {
   final String? roadName;
   final String? building;
   final String? address;
-  final String? postalCode;
+  final String postalCode;
   final String? X;
   final String? Y;
   final String? latitude;

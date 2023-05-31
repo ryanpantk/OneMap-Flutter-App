@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:postal_code_finder/assets/styles/styles.dart';
-import 'package:postal_code_finder/controllers/search_screen_controller.dart';
+import 'package:postal_code_finder/controllers/search_controller.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton(
-      {super.key, required this.controller, required this.label});
+      {super.key, required this.onClicked, required this.label});
 
   final String label;
   final Styles styles = const Styles();
-  final SearchScreenController controller;
+  final Function onClicked;
 
   @override
   Widget build(context) {
@@ -29,7 +29,7 @@ class PrimaryButton extends StatelessWidget {
                   color: styles.lightTextColor),
             ),
             onPressed: () {
-              controller.onSearch();
+              onClicked();
             },
             child: Text(label),
           ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:postal_code_finder/assets/styles/styles.dart';
-import 'package:postal_code_finder/controllers/search_screen_controller.dart';
 
 class TextInput extends StatelessWidget {
   const TextInput(
@@ -14,14 +13,14 @@ class TextInput extends StatelessWidget {
   final int? maxCharacters;
   final TextInputType keyboardType;
   final Styles styles = const Styles();
-  final SearchScreenController controller;
+  final TextEditingController controller;
 
   @override
   Widget build(context) {
     return TextField(
       maxLength: maxCharacters,
       keyboardType: keyboardType,
-      controller: controller.postalCodeTextController,
+      controller: controller,
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(styles.borderRadius),
