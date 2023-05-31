@@ -36,9 +36,9 @@ class SearchScreenController extends GetxController {
       );
     } else {
       try {
-        oneMapAPI.getAddressResults(
+        var results = await oneMapAPI.getAddressResults(
             (postalCodeTextController.text), (pageNumber.toString()));
-        Get.to(SearchResultScreen());
+        Get.to(SearchResultScreen(results));
       } catch (exception) {
         Get.showSnackbar(
           const GetSnackBar(

@@ -1,5 +1,6 @@
 import 'package:get/get_connect.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:postal_code_finder/models/search_result.dart';
 
 class OneMapAPI extends GetxService {
   OneMapAPI();
@@ -7,8 +8,12 @@ class OneMapAPI extends GetxService {
   static const String baseURL = 'https://developers.onemap.sg/commonapi';
   final _connection = GetConnect(timeout: const Duration(seconds: 10));
 
-  void _printResponses(Response<dynamic> response) {
-    print(response.body);
+  void _checkStatusCode(response) {
+    if (response.statusCode == 200) {
+      return;
+    } else {
+      throw Exception(response.statusCode + ": " + response.statusText);
+    }
   }
 
   Future<dynamic> getAddressResults(
@@ -17,8 +22,8 @@ class OneMapAPI extends GetxService {
         "$baseURL/search?searchVal=$searchText&returnGeom=Y&getAddrDetails=Y&pageNum=$pageNumber";
     final Response response = await _connection.get(endpoint);
 
-    _printResponses(response);
+    _checkStatusCode(response);
 
-    return response.body;
+    return SearchResult.fromJSON(response.body);
   }
 }
