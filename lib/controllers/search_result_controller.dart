@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:postal_code_finder/controllers/search_controller.dart';
+import 'package:postal_code_finder/controllers/search_bar_controller.dart';
 import 'package:postal_code_finder/models/search_entry.dart';
 import 'package:postal_code_finder/models/search_result.dart';
 import 'package:postal_code_finder/services/onemap_api.dart';

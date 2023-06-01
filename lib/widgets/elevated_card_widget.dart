@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:postal_code_finder/assets/styles/styles.dart';
 
-class ElevatedCard extends StatelessWidget {
-  const ElevatedCard(
+class ElevatedCardWidget extends StatelessWidget {
+  const ElevatedCardWidget(
       {super.key,
       required this.children,
       this.crossAxisAlignment = CrossAxisAlignment.start});

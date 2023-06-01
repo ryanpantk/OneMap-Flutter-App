@@ -5,10 +5,12 @@ class Styles {
 
   //Global Style
   double get fontSize => 17;
+  double get hintFontSize => 15;
   double get borderRadius => 8;
   MaterialColor get mainColorSwatch => Colors.indigo;
   Color? get darkTextColor => Colors.black;
   Color? get lightTextColor => Colors.white;
+  Color get secondaryTextColor => const Color.fromARGB(182, 0, 0, 0);
   Color? get backgroundColor => Colors.indigo[500];
   double get horizontalPadding => 14;
 
@@ -23,4 +25,7 @@ class Styles {
   double get cardVerticalPadding => 30;
   double get cardHoriziontalPadding => 32;
   Color? get cardBackground => Colors.white;
+
+  //BottomSheet
+  double get bottomSheetBorderRadius => 25;
 }

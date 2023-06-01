@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:postal_code_finder/assets/styles/styles.dart';
 
-class SubHeader extends StatelessWidget {
-  const SubHeader({super.key, required this.text});
+class SubHeaderWidget extends StatelessWidget {
+  const SubHeaderWidget({super.key, required this.text});
 
   final String text;
   final Styles styles = const Styles();
@@ -11,9 +11,9 @@ class SubHeader extends StatelessWidget {
   Widget build(context) {
     return Text(
       text,
-      style: const TextStyle(
-        color: Color.fromARGB(182, 0, 0, 0),
-        fontSize: 15,
+      style: TextStyle(
+        color: styles.secondaryTextColor,
+        fontSize: styles.hintFontSize,
       ),
       textAlign: TextAlign.left,
     );

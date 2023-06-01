@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:postal_code_finder/assets/styles/styles.dart';
-import 'package:postal_code_finder/widgets/spacing.dart';
-import 'package:postal_code_finder/widgets/header.dart';
-import 'package:postal_code_finder/widgets/subheader.dart';
-import 'package:postal_code_finder/widgets/text_input.dart';
-import 'package:postal_code_finder/widgets/primary_button.dart';
-import 'package:postal_code_finder/widgets/elevated_card.dart';
-import 'package:postal_code_finder/controllers/search_controller.dart';
+import 'package:postal_code_finder/widgets/spacing_widget.dart';
+import 'package:postal_code_finder/widgets/header_widget.dart';
+import 'package:postal_code_finder/widgets/subheader_widget.dart';
+import 'package:postal_code_finder/widgets/text_input_widget.dart';
+import 'package:postal_code_finder/widgets/primary_button_widget.dart';
+import 'package:postal_code_finder/widgets/elevated_card_widget.dart';
+import 'package:postal_code_finder/controllers/search_bar_controller.dart';
 
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
 
   final Styles styles = const Styles();
-  final controller = Get.find<SearchBarController>();
+  final searchBarController = Get.find<SearchBarController>();
 
   @override
   Widget build(context) {
@@ -22,18 +22,19 @@ class SearchScreen extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: styles.horizontalPadding),
-          child: ElevatedCard(
+          child: ElevatedCardWidget(
             children: [
-              const Header(text: '🇸🇬 Postal Code Finder'),
-              const Spacing(height: 8),
-              const SubHeader(text: 'Enter a place / location / address'),
-              const Spacing(),
-              TextInput(
+              const HeaderWidget(text: '🇸🇬 Postal Code Finder'),
+              const SpacingWidget(height: 8),
+              const SubHeaderWidget(text: 'Enter a place / location / address'),
+              const SpacingWidget(),
+              TextInputWidget(
                 hint: 'Postal Code',
-                controller: controller.postalCodeTextController,
+                controller: searchBarController.postalCodeTextController,
               ),
-              const Spacing(),
-              PrimaryButton(label: 'Search', onClicked: controller.onSearch),
+              const SpacingWidget(),
+              PrimaryButtonWidget(
+                  label: 'Search', onClicked: searchBarController.onSearch),
             ],
           ),
         ),

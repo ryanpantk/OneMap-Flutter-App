@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:postal_code_finder/assets/styles/styles.dart';
 
-class TextInput extends StatelessWidget {
-  const TextInput(
+class TextInputWidget extends StatelessWidget {
+  const TextInputWidget(
       {super.key,
       required this.controller,
       required this.hint,
       this.maxCharacters,
+      this.focusNode,
       this.keyboardType = TextInputType.text});
 
   final String hint;
@@ -14,10 +15,12 @@ class TextInput extends StatelessWidget {
   final TextInputType keyboardType;
   final Styles styles = const Styles();
   final TextEditingController controller;
+  final FocusNode? focusNode;
 
   @override
   Widget build(context) {
     return TextField(
+      focusNode: focusNode,
       maxLength: maxCharacters,
       keyboardType: keyboardType,
       controller: controller,
@@ -26,8 +29,7 @@ class TextInput extends StatelessWidget {
             borderRadius: BorderRadius.circular(styles.borderRadius),
           ),
           hintText: hint,
-          counterText: '',
-          hintStyle: const TextStyle(fontSize: 15),
+          hintStyle: TextStyle(fontSize: styles.hintFontSize),
           isDense: true),
     );
   }

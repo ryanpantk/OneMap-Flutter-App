@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:postal_code_finder/assets/styles/styles.dart';
-import 'package:postal_code_finder/controllers/search_controller.dart';
+import 'package:postal_code_finder/controllers/search_bar_controller.dart';
 import 'package:postal_code_finder/models/search_result.dart';
-import 'package:postal_code_finder/widgets/elevated_card.dart';
-import 'package:postal_code_finder/widgets/spacing.dart';
-import 'package:postal_code_finder/widgets/text_input.dart';
-import 'package:postal_code_finder/widgets/primary_button.dart';
+import 'package:postal_code_finder/widgets/elevated_card_widget.dart';
+import 'package:postal_code_finder/widgets/spacing_widget.dart';
+import 'package:postal_code_finder/widgets/text_input_widget.dart';
+import 'package:postal_code_finder/widgets/primary_button_widget.dart';
+import 'package:postal_code_finder/widgets/search_entry_widget.dart';
+import 'package:postal_code_finder/widgets/map_bottom_sheet_widget.dart';
 import 'package:postal_code_finder/controllers/search_result_controller.dart';
 
 class SearchResultScreen extends StatelessWidget {
@@ -14,8 +16,9 @@ class SearchResultScreen extends StatelessWidget {
 
   final Styles styles = const Styles();
   final SearchResult results;
-  final controller = Get.find<SearchBarController>();
+  final searchBarController = Get.find<SearchBarController>();
   final searchResultController = Get.find<SearchResultController>();
+  final FocusNode focusNode = FocusNode();
 
   @override
   Widget build(context) {
@@ -32,24 +35,29 @@ class SearchResultScreen extends StatelessWidget {
           children: [
             SizedBox(
               height: 190,
-              child: ElevatedCard(
+              child: ElevatedCardWidget(
                 children: [
-                  TextInput(
+                  TextInputWidget(
                     hint: 'Postal Code',
-                    controller: controller.postalCodeTextController,
+                    controller: searchBarController.postalCodeTextController,
+                    focusNode: focusNode,
                   ),
-                  const Spacing(),
-                  PrimaryButton(
-                      label: 'Search', onClicked: controller.onSearch),
+                  const SpacingWidget(),
+                  PrimaryButtonWidget(
+                      label: 'Search',
+                      onClicked: () {
+                        focusNode.unfocus();
+                        searchBarController.onSearch();
+                      }),
                 ],
               ),
             ),
-            const Spacing(),
+            const SpacingWidget(),
             SizedBox(
               width: double.infinity,
               height: MediaQuery.of(context).size.height - 290,
               child: Obx(
-                () => ElevatedCard(
+                () => ElevatedCardWidget(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Column(
@@ -61,7 +69,7 @@ class SearchResultScreen extends StatelessWidget {
                                 color: Colors.red,
                                 size: 80.0,
                               ),
-                              const Spacing(),
+                              const SpacingWidget(),
                               Center(
                                 child: Text(
                                   "Postal Code not found",
@@ -74,77 +82,20 @@ class SearchResultScreen extends StatelessWidget {
                             ]
                           : [
                               ...searchResultController.searchEntries.map(
-                                (e) {
+                                (element) {
                                   return GestureDetector(
-                                    child: Column(
-                                      children: [
-                                        const Spacing(height: 4),
-                                        Text(
-                                          e.building,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: styles.fontSize,
-                                              color: Colors.indigo[800]),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        const Spacing(height: 6),
-                                        Text("BLK ${e.blockNumber}"),
-                                        Text(e.roadName,
-                                            overflow: TextOverflow.ellipsis),
-                                        Text(
-                                            e.postalCode != "NIL"
-                                                ? e.postalCode
-                                                : "NO POSTAL CODE",
-                                            overflow: TextOverflow.ellipsis),
-                                        const Spacing(height: 4),
-                                        const Divider(
-                                          height: 20,
-                                          thickness: 0.2,
-                                          indent: 5,
-                                          endIndent: 5,
-                                          color: Colors.indigoAccent,
-                                        ),
-                                      ],
-                                    ),
+                                    child: SearchEntryWidget(element),
                                     onTap: () {
                                       showModalBottomSheet(
                                         context: context,
-                                        shape: const RoundedRectangleBorder(
+                                        shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(25.0),
+                                            top: Radius.circular(
+                                                styles.bottomSheetBorderRadius),
                                           ),
                                         ),
                                         builder: (context) {
-                                          return SizedBox(
-                                            height: 300,
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal:
-                                                      styles.horizontalPadding),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  Text(
-                                                    e.address,
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize:
-                                                            styles.fontSize,
-                                                        color: Colors.black),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  const Spacing(),
-                                                  Image.network(
-                                                      "https://developers.onemap.sg/commonapi/staticmap/getStaticImage?layerchosen=default&lat=${e.latitude}&lng=${e.longitude}&zoom=17&height=200&width=500&points=[${e.latitude},${e.longitude},%22255,255,178%22,%22X%22]")
-                                                ],
-                                              ),
-                                            ),
-                                          );
+                                          return MapBottomSheetWidget(element);
                                         },
                                       );
                                     },
@@ -152,8 +103,8 @@ class SearchResultScreen extends StatelessWidget {
                                 },
                               ).toList(),
                               searchResultController.allResultsShown()
-                                  ? const Spacing(height: 0)
-                                  : PrimaryButton(
+                                  ? const SpacingWidget(height: 0)
+                                  : PrimaryButtonWidget(
                                       label: 'View More',
                                       onClicked: () => searchResultController
                                           .addSearchResult()),

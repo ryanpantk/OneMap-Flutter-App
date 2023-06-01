@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Spacing extends StatelessWidget {
-  const Spacing({super.key, this.height = 16});
+class SpacingWidget extends StatelessWidget {
+  const SpacingWidget({super.key, this.height = 16});
   final double height;
 
   @override

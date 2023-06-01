@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:postal_code_finder/assets/styles/styles.dart';
 
-class PrimaryButton extends StatelessWidget {
-  const PrimaryButton(
+class PrimaryButtonWidget extends StatelessWidget {
+  const PrimaryButtonWidget(
       {super.key, required this.onClicked, required this.label});
 
   final String label;
