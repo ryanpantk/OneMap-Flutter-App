@@ -17,14 +17,18 @@ class SearchBarController extends GetxController {
   }
 
   Future<void> onSearch() async {
+    dynamic results;
     try {
-      var results = await oneMapAPI.getAddressResults(
-          (postalCodeTextController.text),
-          (SearchResultController.to.currentPage.value.toString()));
-
       if (SearchResultController.to.searchEntries.isEmpty ||
           postalCodeTextController.text != lastQuery.value) {
+        results = await oneMapAPI.getAddressResults(
+            (postalCodeTextController.text), "1");
+
         SearchResultController.to.setSearchResult(results);
+      } else {
+        results = await oneMapAPI.getAddressResults(
+            (postalCodeTextController.text),
+            (SearchResultController.to.currentPage.value.toString()));
       }
 
       lastQuery.value = postalCodeTextController.text;

@@ -38,7 +38,7 @@ class SearchResultScreen extends StatelessWidget {
               child: ElevatedCardWidget(
                 children: [
                   TextInputWidget(
-                    hint: 'Postal Code',
+                    hint: 'Search for a place',
                     controller: searchBarController.postalCodeTextController,
                     focusNode: focusNode,
                   ),

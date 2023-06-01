@@ -29,7 +29,7 @@ class SearchScreen extends StatelessWidget {
               const SubHeaderWidget(text: 'Enter a place / location / address'),
               const SpacingWidget(),
               TextInputWidget(
-                hint: 'Postal Code',
+                hint: 'Search for a place',
                 controller: searchBarController.postalCodeTextController,
               ),
               const SpacingWidget(),

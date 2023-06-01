@@ -8,13 +8,12 @@ class SearchResultController extends GetxController {
   static SearchResultController get to => Get.find();
 
   final OneMapAPI oneMapAPI = OneMapAPI();
-  List<SearchEntry> searchEntries = <SearchEntry>[].obs;
+  RxList<SearchEntry> searchEntries = <SearchEntry>[].obs;
   RxInt maxPage = 0.obs;
   RxInt currentPage = 1.obs;
 
   void setSearchResult(SearchResult searchResult) {
-    searchEntries.clear();
-    searchEntries.addAll(searchResult.results);
+    searchEntries.value = searchResult.results;
     maxPage.value = searchResult.totalNumberOfPages;
     currentPage.value = searchResult.pageNumber;
   }
