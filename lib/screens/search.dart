@@ -13,7 +13,7 @@ class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
 
   final Styles styles = const Styles();
-  final controller = Get.put(SearchBarController());
+  final controller = Get.find<SearchBarController>();
 
   @override
   Widget build(context) {

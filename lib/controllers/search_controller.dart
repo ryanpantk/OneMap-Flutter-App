@@ -5,9 +5,10 @@ import 'package:postal_code_finder/screens/search_results_screen.dart';
 import 'package:postal_code_finder/services/onemap_api.dart';
 
 class SearchBarController extends GetxController {
+  static SearchBarController get to => Get.find();
+
   final OneMapAPI oneMapAPI = OneMapAPI();
   final postalCodeTextController = TextEditingController();
-  final searchResultController = Get.put(SearchResultController());
   RxString lastQuery = ''.obs;
 
   @override
@@ -19,15 +20,15 @@ class SearchBarController extends GetxController {
     try {
       var results = await oneMapAPI.getAddressResults(
           (postalCodeTextController.text),
-          (searchResultController.currentPage.value.toString()));
+          (SearchResultController.to.currentPage.value.toString()));
 
-      if (searchResultController.searchEntries.isEmpty ||
+      if (SearchResultController.to.searchEntries.isEmpty ||
           postalCodeTextController.text != lastQuery.value) {
-        searchResultController.setSearchResult(results);
+        SearchResultController.to.setSearchResult(results);
       }
 
       lastQuery.value = postalCodeTextController.text;
-      Get.to(() => SearchResultScreen(results, this));
+      Get.to(() => SearchResultScreen(results));
     } catch (exception) {
       Get.showSnackbar(
         const GetSnackBar(

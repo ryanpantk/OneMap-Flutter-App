@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
+import 'package:postal_code_finder/controllers/search_controller.dart';
 import 'package:postal_code_finder/models/search_entry.dart';
 import 'package:postal_code_finder/models/search_result.dart';
 import 'package:postal_code_finder/services/onemap_api.dart';
 
 class SearchResultController extends GetxController {
+  static SearchResultController get to => Get.find();
+
   final OneMapAPI oneMapAPI = OneMapAPI();
   List<SearchEntry> searchEntries = <SearchEntry>[].obs;
   RxInt maxPage = 0.obs;
@@ -16,10 +19,10 @@ class SearchResultController extends GetxController {
     currentPage.value = searchResult.pageNumber;
   }
 
-  Future<void> addSearchResult(controller) async {
+  Future<void> addSearchResult() async {
     currentPage.value += 1;
     var searchResult = await oneMapAPI.getAddressResults(
-        (controller.postalCodeTextController.text),
+        (SearchBarController.to.postalCodeTextController.text),
         (currentPage.value.toString()));
     searchEntries.addAll(searchResult.results);
     currentPage.value = searchResult.pageNumber;

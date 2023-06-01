@@ -10,11 +10,11 @@ import 'package:postal_code_finder/widgets/primary_button.dart';
 import 'package:postal_code_finder/controllers/search_result_controller.dart';
 
 class SearchResultScreen extends StatelessWidget {
-  SearchResultScreen(this.results, this.controller, {super.key});
+  SearchResultScreen(this.results, {super.key});
 
   final Styles styles = const Styles();
   final SearchResult results;
-  final SearchBarController controller;
+  final controller = Get.find<SearchBarController>();
   final searchResultController = Get.find<SearchResultController>();
 
   @override
@@ -156,7 +156,7 @@ class SearchResultScreen extends StatelessWidget {
                                   : PrimaryButton(
                                       label: 'View More',
                                       onClicked: () => searchResultController
-                                          .addSearchResult(controller)),
+                                          .addSearchResult()),
                             ],
                     )
                   ],
